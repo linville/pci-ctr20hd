@@ -120,6 +120,7 @@
 #define ACTIVE_HIGH    (0x1)  /* Active High Terminal Count Pulse */
 #define TC_Toggled     (0x2)  /* TC Toggled */
 #define INACTIVE_HIGH  (0x4)  /* Inactive, Output High Impedance */
+#define ACTIVE_LOW     (0x5)  /* Active Low Terminal Count Pulse */
 
 /* Count Direction */
 #define COUNTDOWN      (0x0)  /* Count Down */
