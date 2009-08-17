@@ -122,17 +122,17 @@
 #define INTPOL_CD 0x010     // Interrupt_CD Polarity: 0 active low (default), 1 = active high.
                             // This bit should always be set to 1 for this product.
                             // Actual interrupt polarity is determined via the INTCD_POL bit in BADR2+9.
-#define INT_CD    0x020     // Interrupt_B Status: 0 = interrupt not active, 1 = interrupt active.
+#define INT_CD    0x020     // Interrupt_CD Status: 0 = interrupt not active, 1 = interrupt active.
 #define PCINT     0x040     // PCI Interrupt Enable: 0 = disabled (default), 1 = enabled.
 #define SW_INT    0x080     // A value of 1 generates a sofware interrupt.
 #define INTSEL_AB 0x100     // Interrupt_AB select bit: 0 = level sensitive (default), 1 = edge sensitive.
                             // Note that this bit only has an effect when in high polarity mode.  The
 			    // interrupt is always level-sensitive when low polarity is selected.
-#define INTSEL_CD 0x200     // Interrupt_B select bit: 0 = level sensitive (default), 1 = edge sensitive.
+#define INTSEL_CD 0x200     // Interrupt_CD select bit: 0 = level sensitive (default), 1 = edge sensitive.
                             // Note that this bit only has an effect when in high polarity mode.  The
 			    // interrupt is always level-sensitive when low polarity is selected.
 #define INTCLR_AB 0x400     // Clear the Interrupt_AB when in edge-triggered triggered configuration.
-#define INTCLR_CD 0x800     // Clear the Interrupt_B when in edge-triggered triggered configuration.
+#define INTCLR_CD 0x800     // Clear the Interrupt_CD when in edge-triggered triggered configuration.
 
 #define INTAB_POL 0x80
 #define INTCD_POL 0x80
