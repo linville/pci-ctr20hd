@@ -1,0 +1,7 @@
+*.ko
+*.o
+*.swp
+Module.symvers
+ctr20HD.mod.c
+modules.order
+test-ctr20HD
