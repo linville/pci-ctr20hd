@@ -1,6 +1,8 @@
 *.ko
 *.o
+.*.cmd
 *.swp
+.tmp_versions
 Module.symvers
 ctr20HD.mod.c
 modules.order
