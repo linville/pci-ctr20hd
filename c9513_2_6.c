@@ -792,22 +792,22 @@ static int ctr20HD_ioctl(struct inode *iNode, struct file *filePtr, unsigned int
     case SET_CLOCK_INPUT:
       switch(chip) {
         case 0x0:  // Chip A
-	  BoardData[board].clockSelectReg_AB &= CLK_A(7);
+	  BoardData[board].clockSelectReg_AB &= ~CLK_A(7);
   	  BoardData[board].clockSelectReg_AB |= CLK_A(arg);
    	  outb_p(BoardData[board].clockSelectReg_AB, CNT_AB_INT);
 	  break;
         case 0x1:  // Chip B
-	  BoardData[board].clockSelectReg_AB &= CLK_B(7);
+	  BoardData[board].clockSelectReg_AB &= ~CLK_B(7);
   	  BoardData[board].clockSelectReg_AB |= CLK_B(arg);
      	  outb_p(BoardData[board].clockSelectReg_AB, CNT_AB_INT);
 	  break;
         case 0x2:  // Chip C
-	  BoardData[board].clockSelectReg_CD &= CLK_C(7);
+	  BoardData[board].clockSelectReg_CD &= ~CLK_C(7);
   	  BoardData[board].clockSelectReg_CD |= CLK_C(arg);
       	  outb_p(BoardData[board].clockSelectReg_CD, CNT_AB_INT);
 	  break;
         case 0x3:  // Chip D
-	  BoardData[board].clockSelectReg_CD &= CLK_D(7);
+	  BoardData[board].clockSelectReg_CD &= ~CLK_D(7);
   	  BoardData[board].clockSelectReg_CD |= CLK_D(arg);
 	  outb_p(BoardData[board].clockSelectReg_CD, CNT_AB_INT);
 	  break;
@@ -817,13 +817,13 @@ static int ctr20HD_ioctl(struct inode *iNode, struct file *filePtr, unsigned int
       switch(chip) {
         case 0x0:  // Chip A
         case 0x1:  // Chip B
-	  BoardData[board].clockSelectReg_AB &= INTAB_POL;
+	  BoardData[board].clockSelectReg_AB &= ~INTAB_POL;
 	  BoardData[board].clockSelectReg_AB |= (arg & 0x1) << 7;
  	  outb_p(BoardData[board].clockSelectReg_AB, CNT_AB_INT);
 	  break;
         case 0x2:  // Chip C
         case 0x3:  // Chip D
-	  BoardData[board].clockSelectReg_CD &= INTCD_POL;
+	  BoardData[board].clockSelectReg_CD &= ~INTCD_POL;
 	  BoardData[board].clockSelectReg_CD |= (arg & 0x1) << 7;
 	  outb_p(BoardData[board].clockSelectReg_CD, CNT_CD_INT);
 	  break;

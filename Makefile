@@ -30,7 +30,7 @@
 ###########################################################################
 
 #  Current Version of the driver
-VERSION=1.3
+VERSION=1.4
 
 #  Number of PCI-CTR20HD boards on your system:
 #  MUST ALSO CHANGE MAX_BOARDS in c9513.h
