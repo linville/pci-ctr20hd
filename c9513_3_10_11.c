@@ -805,12 +805,12 @@ static long ctr20HD_ioctl(struct file *filePtr, unsigned int cmd, unsigned long 
         case 0x2:  // Chip C
 	  BoardData[board].clockSelectReg_CD &= ~CLK_C(7);
   	  BoardData[board].clockSelectReg_CD |= CLK_C(arg);
-      	  outb_p(BoardData[board].clockSelectReg_CD, CNT_AB_INT);
+      	  outb_p(BoardData[board].clockSelectReg_CD, CNT_CD_INT);
 	  break;
         case 0x3:  // Chip D
 	  BoardData[board].clockSelectReg_CD &= ~CLK_D(7);
   	  BoardData[board].clockSelectReg_CD |= CLK_D(arg);
-	  outb_p(BoardData[board].clockSelectReg_CD, CNT_AB_INT);
+	  outb_p(BoardData[board].clockSelectReg_CD, CNT_CD_INT);
 	  break;
       }
       break;
