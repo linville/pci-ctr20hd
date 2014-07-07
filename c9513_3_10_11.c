@@ -215,7 +215,7 @@ static int ctr20HD_init_one(struct pci_dev *pdev, const struct pci_device_id *en
 
   /* Register interrupt handler. */
   wReg = inl_p(INTERRUPT_REG);
-  wReg &= ~(PCINT | INTE_AB | INT_CD);
+  wReg &= ~(PCINT | INTE_AB | INTE_CD);
   outl_p(wReg, INTERRUPT_REG);
 
   BoardData[NumBoards].irq = pdev->irq;
