@@ -885,7 +885,7 @@ static irqreturn_t ctr20HD_Interrupt(int irq, void *dev_id)
   spin_lock_irq(&ctr20HD_lock);
 
   pci9052_intreg = inl(INTERRUPT_REG);
-  if (pci9052_intreg & INT_AB) {    // we got interrupted from CHIP A or B
+  if (pci9052_intreg & INT_AB) {    // we got interrupted from chip A or B
     outl(pci9052_intreg | INTCLR_AB, INTERRUPT_REG);
 
   #ifdef DEBUG
@@ -893,11 +893,11 @@ static irqreturn_t ctr20HD_Interrupt(int irq, void *dev_id)
   #endif
   }
 
-  if (pci9052_intreg & INT_CD) {    // we got interrupted chip C or D
+  if (pci9052_intreg & INT_CD) {    // we got interrupted from chip C or D
     outl(pci9052_intreg | INTCLR_CD, INTERRUPT_REG);
 
   #ifdef DEBUG
-      printk("Entering ctr20HD_B_ReadInterrupt(). irq = %d\n", irq );
+      printk("Entering ctr20HD_CD_ReadInterrupt(). irq = %d\n", irq );
   #endif
   }
 
