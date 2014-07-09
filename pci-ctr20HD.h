@@ -49,8 +49,10 @@
 #define SET_CLOCK_INPUT       _IO(IOCTL_MAGIC,  12)
 #define INT_POLARITY          _IO(IOCTL_MAGIC,  13)
 #define SET_SQUARE_FREQ       _IO(IOCTL_MAGIC,  14)
+#define WAIT_INT_AB           _IO(IOCTL_MAGIC,  15)
+#define WAIT_INT_CD           _IO(IOCTL_MAGIC,  16)
 
-#define IOCTL_MAXNR 14         /* maxinum ordinal number */
+#define IOCTL_MAXNR 16         /* maxinum ordinal number */
 
 
 /****************************************************************

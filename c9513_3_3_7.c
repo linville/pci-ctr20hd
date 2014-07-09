@@ -91,9 +91,13 @@ static spinlock_t ctr20HD_lock;
 static BoardRec BoardData[MAX_BOARDS];                      /* Board specific information      */
 static CounterRec  Counter[MAX_BOARDS][NCHIP][NCOUNTERS+1]; /* Counter specific information    */
 static int MajorNumber = DEFAULT_MAJOR_DEV;                 /* Major number compiled in        */
-static DECLARE_WAIT_QUEUE_HEAD(ctr20HD_wait);               /* wait semaphore                  */
+static DECLARE_WAIT_QUEUE_HEAD(ctr20HD_ab_wq);              /* AB interrupt wait queue         */
+static DECLARE_WAIT_QUEUE_HEAD(ctr20HD_cd_wq);              /* CD interrupt wait queue         */
 //static struct timer_list TimerList = {function: ctr20HD_TimerHandler};
 static int NumBoards = 0;                                   /* number of boards found          */
+
+static int int_ab_flag = 0;                              /* flag that chip a or b interrupted  */
+static int int_cd_flag = 0;                              /* flag that chip c or d interrupted  */
 
 /***************************************************************************
  *
@@ -856,6 +860,14 @@ static long ctr20HD_ioctl(struct file *filePtr, unsigned int cmd, unsigned long 
       outb_p(CLEAR_OUTPUT | counter, cmd_reg);   // set TC Low
       outb_p (ARM | bReg, cmd_reg);              // Go ...    
       break;
+  case WAIT_INT_AB:
+      wait_event_interruptible(ctr20HD_ab_wq, (int_ab_flag == 1));
+      int_ab_flag = 0;
+      break;
+  case WAIT_INT_CD:
+      wait_event_interruptible(ctr20HD_cd_wq, (int_cd_flag == 1));
+      int_cd_flag = 0;
+      break;
   }  /* end switch */
   return 0;
 }
@@ -888,6 +900,9 @@ static irqreturn_t ctr20HD_Interrupt(int irq, void *dev_id)
   if (pci9052_intreg & INT_AB) {    // we got interrupted from chip A or B
     outl(pci9052_intreg | INTCLR_AB, INTERRUPT_REG);
 
+    int_ab_flag = 1;
+    wake_up_interruptible(&ctr20HD_ab_wq);
+
   #ifdef DEBUG
       printk("Entering ctr20HD_AB_ReadInterrupt(). irq = %d\n", irq );
   #endif
@@ -895,6 +910,9 @@ static irqreturn_t ctr20HD_Interrupt(int irq, void *dev_id)
 
   if (pci9052_intreg & INT_CD) {    // we got interrupted from chip C or D
     outl(pci9052_intreg | INTCLR_CD, INTERRUPT_REG);
+
+    int_cd_flag = 1;
+    wake_up_interruptible(&ctr20HD_cd_wq);
 
   #ifdef DEBUG
       printk("Entering ctr20HD_CD_ReadInterrupt(). irq = %d\n", irq );
