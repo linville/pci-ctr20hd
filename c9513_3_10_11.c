@@ -219,7 +219,9 @@ static int ctr20HD_init_one(struct pci_dev *pdev, const struct pci_device_id *en
 
   /* Register interrupt handler. */
   wReg = inl_p(INTERRUPT_REG);
-  wReg &= ~(PCINT | INTE_AB | INTE_CD);
+  wReg |= (PCINT | INTE_AB | INTE_CD); /* Enable PCI Interrupts and AB/CD interrupt lines */
+  wReg |= (INTSEL_AB | INTSEL_CD); /* Select edge-sensitive mode */
+  wReg |= (INTPOL_AB | INTPOL_CD); /* Not polarity selection. See docs on INTAB_POL/INTCD_POL */
   outl_p(wReg, INTERRUPT_REG);
 
   BoardData[NumBoards].irq = pdev->irq;
